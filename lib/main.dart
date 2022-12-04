@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +12,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if(Platform.isAndroid){
+      return MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: MaterialHomePage(),
+      );
+    }
+
     return CupertinoApp(
       title: 'Flutter Demo',
       theme: CupertinoThemeData(
@@ -17,13 +29,6 @@ class MyApp extends StatelessWidget {
       ),
       home: CupertinoHomePage(),
     );
-    // return MaterialApp(
-    //   title: 'Flutter Demo',
-    //   theme: ThemeData(
-    //     primarySwatch: Colors.blue,
-    //   ),
-    //   home: MaterialHomePage(),
-    // );
   }
 }
 
