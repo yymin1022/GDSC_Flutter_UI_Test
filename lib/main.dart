@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,22 +10,29 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return CupertinoApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      theme: CupertinoThemeData(
+        primaryColor: Colors.blue,
       ),
-      home: MyHomePage(),
+      home: CupertinoHomePage(),
     );
+    // return MaterialApp(
+    //   title: 'Flutter Demo',
+    //   theme: ThemeData(
+    //     primarySwatch: Colors.blue,
+    //   ),
+    //   home: MaterialHomePage(),
+    // );
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MaterialHomePage extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MaterialHomePageState createState() => _MaterialHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MaterialHomePageState extends State<MaterialHomePage> {
   bool _isChecked = false;
   bool _isSwitchOn = false;
 
@@ -62,11 +70,71 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void FlutterDialog() {
     showDialog(
+        context: context,
+        //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Dialog Title"),
+            content: Text(
+              "Dialog Content",
+            ),
+            actions: <Widget>[
+              new TextButton(
+                child: Text("확인"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        });
+  }
+}
+
+class CupertinoHomePage extends StatefulWidget {
+  @override
+  _CupertinoHomePageState createState() => _CupertinoHomePageState();
+}
+
+class _CupertinoHomePageState extends State<CupertinoHomePage> {
+  bool _isChecked = false;
+  bool _isSwitchOn = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: CupertinoNavigationBar(
+        middle: Text("GDSC CAU Flutter UI Test"),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              "Hello, GDSC CAU Flutter UI Test!",
+            ),
+            CupertinoButton(child: Text("Click Me!"), onPressed: () {
+              FlutterDialog();
+            }),
+            CupertinoSwitch(value: _isSwitchOn, onChanged: (value) {
+              setState(() {
+                _isSwitchOn = value;
+              });
+            }),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void FlutterDialog() {
+    showCupertinoDialog(
       context: context,
       //barrierDismissible - Dialog를 제외한 다른 화면 터치 x
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return AlertDialog(
+        return CupertinoAlertDialog(
           title: Text("Dialog Title"),
           content: Text(
             "Dialog Content",
